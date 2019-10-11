@@ -22,9 +22,7 @@ class Chart {
     this.plot = new Plot(this.elem, this.eqs);
 
     window.addEventListener('resize', () => {
-      if (document.activeElement.getAttribute('type') !== 'text') {
-        this.draw();
-      }
+      this.draw();
     });
 
     this.draw();
@@ -40,7 +38,13 @@ class Chart {
 
   constructLegend() {
     if (this.legend) {
-      this.legend.innerHTML = '';
+      if (this.legend.children.length < 3 + this.eqs.length) {
+        this.legend.innerHTML = '';
+      } else {
+        console.log('skipping legend');
+        return;
+      }
+
     } else {
       this.legend = document.createElement("div");
       this.legend.setAttribute('id', 'plot-legend');
