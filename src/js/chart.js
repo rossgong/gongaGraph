@@ -117,7 +117,12 @@ class Chart {
     line.onsubmit = (ev) => {
       ev.preventDefault();
 
-      this.addEquation(textbox.value);
+      try {
+        this.addEquation(textbox.value);
+      } catch (e) {
+        //add some sort of modal?
+        textbox.setAttribute('style', 'color:red;');
+      }
     }
 
     this.legend.appendChild(line);
