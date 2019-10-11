@@ -19,6 +19,8 @@ var _PRECEDENCE_MAP = {
   'floor': 5,
   'round': 5,
   'log': 5,
+  'trunc': 5,
+  'exp': 5,
 
   //Exponentiation
   '^': 11,
@@ -57,6 +59,8 @@ var _OP_TABLE = {
   'ceil': (a) => Math.ceil(a),
   'floor': (a) => Math.floor(a),
   'round': (a) => Math.round(a),
+  'trunc': (a) => Math.trunc(a),
+  'exp': (a) => Math.exp(a),
 
   //natural log
   'log': (a) => Math.log(a),
