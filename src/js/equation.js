@@ -1,45 +1,4 @@
 
-//Precedence map. Even is left to right. odd is right to left
-var _PRECEDENCE_MAP = {
-  //Parenthesis
-  '(': 0,
-  ')': 0,
-
-  //Trig
-  'sin': 5,
-  'cos': 5,
-  'tan': 5,
-
-  //Exponentiation
-  '^': 11,
-
-  //Multiply/Divide
-  '*': 20,
-  '/': 20,
-
-  //Add/Subtract
-  '+': 30,
-  '-': 30
-}
-
-var _OP_TABLE = {
-  //Exponentiation
-  '^': (a, b) => Math.pow(a, b),
-
-  //Multiply/Divide
-  '*': (a, b) => a * b,
-  '/': (a, b) => a / b,
-
-  //Add/Subtract
-  '+': (a, b) => a + b,
-  '-': (a, b) => a - b,
-
-  //Trig
-  'sin': (a) => Math.sin(a),
-  'cos': (a) => Math.cos(a),
-  'tan': (a) => Math.tan(a),
-}
-
 //Implementation of the shunt-yard algorithm
 function parseEquation(eqString) {
   eqString = eqString.replace(/\s/g, '');
