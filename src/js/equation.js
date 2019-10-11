@@ -107,7 +107,12 @@ function createTreeFunction(ops, vals) {
   var operands = [];
 
   for (var i = 0; i < numOperands(op); i++) {
-    operands.unshift(vals.pop());
+    var operand = vals.pop();
+    if (operand) {
+      operands.unshift(operand);
+    } else {
+      throw 'Not valid equation ran out of operands';
+    }
   }
 
   return new Equation(op, operands);
@@ -124,13 +129,16 @@ function isHigherOrder(opA, opB) {
 
 class Equation {
   constructor(opCode, operands) {
-    this.op = opCode;
+    if (_OP_TABLE[opCode]) {
+      this.op = opCode;
+      this.opFunction = _OP_TABLE[opCode];
 
-    this.opFunction = _OP_TABLE[opCode];
+      this.operands = operands;
 
-    this.operands = operands;
-
-    this.visible = true;
+      this.visible = true;
+    } else {
+      throw `Operater '${opCode}' not recognized`;
+    }
   }
 
   exec(vars) {

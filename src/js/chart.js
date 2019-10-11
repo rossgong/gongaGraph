@@ -41,7 +41,6 @@ class Chart {
       if (this.legend.children.length < 3 + this.eqs.length) {
         this.legend.innerHTML = '';
       } else {
-        console.log('skipping legend');
         return;
       }
 
@@ -118,7 +117,12 @@ class Chart {
     line.onsubmit = (ev) => {
       ev.preventDefault();
 
-      this.addEquation(textbox.value);
+      try {
+        this.addEquation(textbox.value);
+      } catch (e) {
+        //add some sort of modal?
+        textbox.setAttribute('style', 'color:red;');
+      }
     }
 
     this.legend.appendChild(line);
