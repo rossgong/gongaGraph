@@ -22,7 +22,9 @@ class Chart {
     this.plot = new Plot(this.elem, this.eqs);
 
     window.addEventListener('resize', () => {
-      this.draw();
+      if (document.activeElement.getAttribute('type') !== 'text') {
+        this.draw();
+      }
     });
 
     this.draw();
@@ -96,6 +98,7 @@ class Chart {
     label.innerText = 'f(x) = ';
 
     var textbox = document.createElement('input');
+    textbox.setAttribute('type', 'text');
     textbox.setAttribute('placeholder', 'x + 2');
 
     label.appendChild(textbox);
