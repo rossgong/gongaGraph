@@ -23,18 +23,8 @@
   </div>
 
   <script>
-    //Testing equation parsing
     (() => {
-      var elem = document.getElementById('graph');
-
-      var eqs = [
-      ];
-
-      eqs = eqs.map(val => {
-        return parseEquation(val);
-      });
-
-      var chart = new Chart(elem, eqs);
+      var chart = new Chart(document.getElementById('graph'), []);
     })();
   </script>
 </body>

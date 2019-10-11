@@ -41,7 +41,6 @@ class Chart {
       if (this.legend.children.length < 3 + this.eqs.length) {
         this.legend.innerHTML = '';
       } else {
-        console.log('skipping legend');
         return;
       }
 
