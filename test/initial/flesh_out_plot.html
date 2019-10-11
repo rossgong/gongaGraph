@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>rGraph
+  </title>
+
+  <script src="https://two.js.org/third-party/two.js"></script>
+
+  <script src="../../src/js/plot.js"></script>
+  <script src="../../src/js/equation.js"></script>
+  <script src="../../src/js/chart.js"></script>
+
+  <link rel="stylesheet" href="../../src/css/chart.css">
+</head>
+
+<body>
+
+  <div id="graph">
+  </div>
+
+  <script>
+    //Testing equation parsing
+    (() => {
+      var elem = document.getElementById('graph');
+
+      var eqs = [
+      ];
+
+      eqs = eqs.map(val => {
+        return parseEquation(val);
+      });
+
+      var chart = new Chart(elem, eqs);
+    })();
+  </script>
+</body>
+
+</html>

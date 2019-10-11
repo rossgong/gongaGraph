@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>rGraph
+  </title>
+
+  <script src="../../lib/two.min.js"></script>
+  <script src="../../src/js/plot.js"></script>
+  <script src="../../src/js/equation.js"></script>
+</head>
+
+<body>
+
+  <div id="graph"></div>
+
+  <script>
+    //Testing equation parsing
+    (() => {
+      var elem = document.getElementById('graph');
+
+      var eqs = [
+        'x^2',
+        '1/x',
+        'x^100',
+        '(sin(x)/x)'
+      ];
+
+      eqs = eqs.map(val => {
+        var eq = parseEquation(val);
+        return x => eq.exec({ x });
+      });
+
+      var plot = new Plot(elem);
+
+      plot.draw(eqs);
+
+      window.addEventListener('resize', () => {
+        plot.draw(eqs);
+      });
+    })();
+  </script>
+</body>
+
+</html>
