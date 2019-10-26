@@ -28,6 +28,7 @@ var _PRECEDENCE_MAP = {
   //Multiply/Divide
   '*': 20,
   '/': 20,
+  '\\': 20,
 
   //Add/Subtract
   '+': 30,
@@ -41,6 +42,7 @@ var _OP_TABLE = {
   //Multiply/Divide
   '*': (a, b) => a * b,
   '/': (a, b) => a / b,
+  '\\': (a, b) => a / b,
 
   //Add/Subtract
   '+': (a, b) => a + b,

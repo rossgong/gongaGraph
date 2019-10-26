@@ -7,7 +7,7 @@ class Chart {
 
       eqs.forEach(eq => {
         if (eq instanceof Equation) {
-          this.eqs.push(eq)
+          this.eqs.push(eq);
         } else if (typeof eq === 'string') {
           this.eqs.push(parseEquation(eq));
         } else {
@@ -38,6 +38,7 @@ class Chart {
 
   constructLegend() {
     if (this.legend) {
+      //3 + ... is because the number of elements should be the number of eqs plus the static elems
       if (this.legend.children.length < 3 + this.eqs.length) {
         this.legend.innerHTML = '';
       } else {
@@ -52,10 +53,19 @@ class Chart {
     //create header
     var header = document.createElement("h4");
     header.innerText = 'Legend';
+
+    var settings = document.createElement('button');
+    settings.innerText = '~';
+    settings.setAttribute('id', 'setting-button');
+    header.appendChild(settings);
+
     this.legend.appendChild(header);
+
+
     this.legend.appendChild(document.createElement('hr'));
 
     //create eq list
+    console.log(this.eqs);
     this.eqs.forEach((eq, i) => {
       var line = document.createElement('div');
       line.setAttribute('class', 'function-display');

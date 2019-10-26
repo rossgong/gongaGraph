@@ -4,9 +4,27 @@ class Plot {
     fullscreen: true
   }
 
-  constructor(elem, eqs) {
+  constructor(elem, eqs, range) {
     this._plotter = new Two(this._PARAMS);
     this._plotter.appendTo(elem);
+
+    if (range) {
+      //deal with if range is given
+      //TODO: Make actual checks instead of arbitrarily assigning
+      this._bounds = range;
+    } else {
+      //else establish an arbitrary range
+      this._bounds = {
+        x: {
+          min: -this._plotter.width / 50,
+          max: this._plotter.width / 50
+        },
+        y: {
+          min: -this._plotter.height / 50,
+          max: this._plotter.height / 50
+        }
+      };
+    }
 
     if (Array.isArray(eqs)) {
       this.eqs = eqs;
@@ -19,16 +37,6 @@ class Plot {
     if (!eqs) {
       eqs = this.eqs;
     }
-    this._bounds = {
-      x: {
-        min: -this._plotter.width / 50,
-        max: this._plotter.width / 50
-      },
-      y: {
-        min: -this._plotter.height / 50,
-        max: this._plotter.height / 50
-      }
-    };
 
     this._plotter.clear();
 

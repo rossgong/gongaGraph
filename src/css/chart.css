@@ -36,3 +36,9 @@ h4 {
   margin: 0;
   text-align: center;
 }
+
+#setting-button {
+  position: absolute;  
+  top: 0px;
+  right: 0px;
+}

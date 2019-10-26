@@ -113,6 +113,10 @@ class Equation {
     return this.opFunction(...computedOperands);
   }
 
+  batch(vars, values) {
+
+  }
+
   toString() {
     if (this.operands.length === 1) {
       return `${this.op}(${this.operands[0].toString()})`;
