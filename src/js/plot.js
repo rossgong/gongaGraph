@@ -1,7 +1,8 @@
 
 class Plot {
   _PARAMS = {
-    fullscreen: true
+    fullscreen: true,
+    type: Two.Types.svg
   }
 
   constructor(elem, eqs, range) {
@@ -49,6 +50,10 @@ class Plot {
     });
 
     this._plotter.update();
+  }
+
+  getElement() {
+    return this._plotter.renderer.domElement;
   }
 
   _drawAnchors(anchors, color) {

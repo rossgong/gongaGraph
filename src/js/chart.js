@@ -54,10 +54,17 @@ class Chart {
     var header = document.createElement("h4");
     header.innerText = 'Legend';
 
-    var settings = document.createElement('button');
-    settings.innerText = '~';
-    settings.setAttribute('id', 'setting-button');
-    header.appendChild(settings);
+    var download = document.createElement('a');
+    download.innerText = 'DL';
+    download.setAttribute('id', 'setting-button');
+    download.setAttribute('download', 'plot.svg');
+    download.onclick = ev => {
+      var elem = this.plot.getElement();
+      elem.setAttribute('xmlns', "http://www.w3.org/2000/svg");
+      elem.setAttribute('xmlns:xlink', "http://www.w3.org/1999/xlink");
+      download.setAttribute('href', 'data:application/octet-stream;base64,' + btoa(this.plot.getElement().outerHTML));
+    };
+    header.appendChild(download);
 
     this.legend.appendChild(header);
 
