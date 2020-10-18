@@ -39,31 +39,33 @@ class Chart {
   draw() {
     this.plot.draw();
 
-    this.constructLegend();
+    this.constructLegendPanel();
+    this.constructSettingsPanel();
 
-    this.elem.appendChild(this.legend);
+    this.elem.appendChild(this.legendPanel);
+    this.elem.appendChild(this.settingsPanel);
   }
 
-  constructLegend() {
-    if (this.legend) {
+  constructLegendPanel() {
+    if (this.legendPanel) {
       //3 + ... is because the number of elements should be the number of eqs plus the static elems
-      if (this.legend.children.length < 3 + this.eqs.length) {
-        this.legend.innerHTML = '';
+      if (this.legendPanel.children.length < 3 + this.eqs.length) {
+        this.legendPanel.innerHTML = '';
       } else {
         return;
       }
 
     } else {
-      this.legend = document.createElement("div");
-      this.legend.setAttribute('class', 'chart-modal');
-      this.legend.setAttribute('id', 'chart-legend');
+      this.legendPanel = document.createElement("div");
+      this.legendPanel.setAttribute('class', 'chart-panel');
+      this.legendPanel.setAttribute('id', 'chart-legend');
     }
 
     //create header
     var header = document.createElement("h4");
     header.innerText = 'Legend';
-    this.legend.appendChild(header);
-    this.legend.appendChild(document.createElement('hr'));
+    this.legendPanel.appendChild(header);
+    this.legendPanel.appendChild(document.createElement('hr'));
 
     //create eq list
     console.log(this.eqs);
@@ -93,7 +95,7 @@ class Chart {
       line.appendChild(eqStringElem);
 
       //add this line to the legend
-      this.legend.appendChild(line);
+      this.legendPanel.appendChild(line);
     });
 
     //add a creation line
@@ -136,11 +138,38 @@ class Chart {
       }
     };
 
-    this.legend.appendChild(line);
+    this.legendPanel.appendChild(line);
   }
 
-  createSettingsPanel() {
+  constructSettingsPanel() {
+    if (this.settingsPanel) {
+      return;
+    }
+    this.settingsPanel = document.createElement("div");
+    this.settingsPanel.setAttribute('class', 'chart-panel');
+    this.settingsPanel.setAttribute('id', 'chart-settings');
 
+    //create header
+    var header = document.createElement("h4");
+    header.innerText = 'Settings';
+    this.settingsPanel.appendChild(header);
+    this.settingsPanel.appendChild(document.createElement('hr'));
+
+    var downloadWrapper = document.createElement('a');
+    downloadWrapper.setAttribute('id', 'setting-button');
+    downloadWrapper.setAttribute('download', 'plot.svg');
+    downloadWrapper.onclick = ev => {
+      var elem = this.plot.getElement();
+      elem.setAttribute('xmlns', "http://www.w3.org/2000/svg");
+      elem.setAttribute('xmlns:xlink', "http://www.w3.org/1999/xlink");
+      downloadWrapper.setAttribute('href', 'data:application/octet-stream;base64,' + btoa(this.plot.getElement().outerHTML));
+    };
+
+    var downloadButton = document.createElement("button");
+    downloadButton.innerHTML = "Download plot (.svg)";
+    downloadWrapper.appendChild(downloadButton);
+
+    this.settingsPanel.appendChild(downloadWrapper);
   }
 
   addEquation(eq) {
