@@ -1,4 +1,4 @@
-#plot-legend {
+.chart-modal {
   font-family: Arial, Helvetica, sans-serif;
   margin: 10px;
   padding: 10px;
@@ -12,8 +12,7 @@
 .function-display {
   font-family: 'Roboto Mono', 'Courier New', Courier, monospace;
   font-size: 1em;
-  text-shadow:
-    0px 0px 1px #000;
+  text-shadow: 0px 0px 1px #000;
 }
 
 input {
@@ -38,7 +37,7 @@ h4 {
 }
 
 #setting-button {
-  position: absolute;  
+  position: absolute;
   top: 0px;
   right: 0px;
 }

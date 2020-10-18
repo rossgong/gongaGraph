@@ -5,11 +5,11 @@ class Plot {
     type: Two.Types.svg
   };
 
-  constructor(elem, eqs, xMin = -10, xMax = 10, yMin = -10, yMax = 10) {
+  constructor(elem, eqs, plotSettings = { range: { xMin: -10, xMax: 10, yMin: -10, yMax: 10 } }) {
     this._plotter = new Two(this._PARAMS);
     this._plotter.appendTo(elem);
 
-    this.setBounds(xMin, xMax, yMin, yMax);
+    this.setBounds(plotSettings.range.xMin, plotSettings.range.xMax, plotSettings.range.yMin, plotSettings.range.yMax);
 
     if (Array.isArray(eqs)) {
       this.eqs = eqs;

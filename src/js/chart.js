@@ -14,8 +14,20 @@ class Chart {
       }
     });
 
+    //initalize settings to a default
+    this.settings = {
+      plotSettings: {
+        range: {
+          xMin: -10,
+          xMax: 10,
+          yMin: -10,
+          yMax: 10
+        }
+      }
+    };
+
     this.elem = parentElem;
-    this.plot = new Plot(this.elem, this.eqs);
+    this.plot = new Plot(this.elem, this.eqs, this.settings.plotSettings);
 
     window.addEventListener('resize', () => {
       this.draw();
@@ -43,28 +55,14 @@ class Chart {
 
     } else {
       this.legend = document.createElement("div");
-      this.legend.setAttribute('id', 'plot-legend');
+      this.legend.setAttribute('class', 'chart-modal');
+      this.legend.setAttribute('id', 'chart-legend');
     }
 
     //create header
     var header = document.createElement("h4");
     header.innerText = 'Legend';
-
-    var download = document.createElement('a');
-    download.innerText = 'DL';
-    download.setAttribute('id', 'setting-button');
-    download.setAttribute('download', 'plot.svg');
-    download.onclick = ev => {
-      var elem = this.plot.getElement();
-      elem.setAttribute('xmlns', "http://www.w3.org/2000/svg");
-      elem.setAttribute('xmlns:xlink', "http://www.w3.org/1999/xlink");
-      download.setAttribute('href', 'data:application/octet-stream;base64,' + btoa(this.plot.getElement().outerHTML));
-    };
-    header.appendChild(download);
-
     this.legend.appendChild(header);
-
-
     this.legend.appendChild(document.createElement('hr'));
 
     //create eq list
@@ -139,6 +137,10 @@ class Chart {
     };
 
     this.legend.appendChild(line);
+  }
+
+  createSettingsPanel() {
+
   }
 
   addEquation(eq) {
