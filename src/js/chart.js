@@ -42,8 +42,13 @@ class Chart {
     this.constructLegendPanel();
     this.constructSettingsPanel();
 
-    this.elem.appendChild(this.legendPanel);
-    this.elem.appendChild(this.settingsPanel);
+    var panels = document.createElement("div");
+    panels.setAttribute("id", "chart-panels");
+
+    panels.appendChild(this.legendPanel);
+    panels.appendChild(this.settingsPanel);
+
+    this.elem.appendChild(panels);
   }
 
   constructLegendPanel() {
