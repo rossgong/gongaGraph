@@ -121,7 +121,16 @@ class Equation {
     if (this.operands.length === 1) {
       return `${this.op}(${this.operands[0].toString()})`;
     } else if (this.operands.length === 2) {
-      return `${this.operands[0]} ${this.op} ${this.operands[1]}`;
+      //Parentheses rewuired if there the precence of this operator is higher than it's operands
+      var opStrings = this.operands.map((op) => {        
+        if (_PRECEDENCE_MAP[this.op] < _PRECEDENCE_MAP[op.op]) {
+          return `(${op.toString()})`
+        } else {
+          return op.toString();
+        }
+      }, this);
+
+      return opStrings.join(` ${this.op} `);
     }
 
     return 'OTHER';
