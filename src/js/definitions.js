@@ -32,10 +32,16 @@ var _PRECEDENCE_MAP = {
 
   //Add/Subtract
   '+': 30,
-  '-': 30
-}
+  '-': 30,
+
+  //Value (no operator)
+  '\0': 5000,
+};
 
 var _OP_TABLE = {
+  //value
+  '\0': (a) => a,
+
   //Exponentiation
   '^': (a, b) => Math.pow(a, b),
 
@@ -66,4 +72,4 @@ var _OP_TABLE = {
 
   //natural log
   'log': (a) => Math.log(a),
-}
+};

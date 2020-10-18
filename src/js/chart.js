@@ -1,22 +1,18 @@
 
 
 class Chart {
-  constructor(parentElem, eqs) {
-    if (Array.isArray(eqs)) {
-      this.eqs = [];
-
-      eqs.forEach(eq => {
-        if (eq instanceof Equation) {
-          this.eqs.push(eq);
-        } else if (typeof eq === 'string') {
-          this.eqs.push(parseEquation(eq));
-        } else {
-          //Throw exception if eq isn't a proper format
-        }
-      });
-    } else {
-      //Throw exception if eqs is not an array?
-    }
+  constructor(parentElem, eqs = []) {
+    //setup intenal eqs. accept both Equation objects and Equation strings
+    this.eqs = [];
+    eqs.forEach(eq => {
+      if (eq instanceof Equation) {
+        this.eqs.push(eq);
+      } else if (typeof eq === 'string') {
+        this.eqs.push(parseEquation(eq));
+      } else {
+        throw "Equation given to Chart is not a proper equation equivalent";
+      }
+    });
 
     this.elem = parentElem;
     this.plot = new Plot(this.elem, this.eqs);
@@ -87,14 +83,14 @@ class Chart {
       check.onchange = (ev) => {
         eq.visible = ev.target.checked;
         this.draw();
-      }
+      };
 
       line.appendChild(check);
 
       var eqStringElem = document.createElement('label');
       eqStringElem.setAttribute('for', 'eq' + i);
       eqStringElem.innerText = 'f(x) = ' + eq.toString();
-      eqStringElem.setAttribute('style', `color: ${eq.color};`)
+      eqStringElem.setAttribute('style', `color: ${eq.color};`);
 
       line.appendChild(eqStringElem);
 
@@ -108,7 +104,7 @@ class Chart {
 
     var check = document.createElement('input');
     check.setAttribute('type', 'checkbox');
-    check.setAttribute('id', 'empty-check')
+    check.setAttribute('id', 'empty-check');
     check.setAttribute('disabled', true);
     line.appendChild(check);
 
@@ -125,7 +121,7 @@ class Chart {
 
     var button = document.createElement('input');
     button.setAttribute('type', 'submit');
-    button.setAttribute('value', '+')
+    button.setAttribute('value', '+');
 
     label.appendChild(button);
 
@@ -140,7 +136,7 @@ class Chart {
         //add some sort of modal?
         textbox.setAttribute('style', 'color:red;');
       }
-    }
+    };
 
     this.legend.appendChild(line);
   }

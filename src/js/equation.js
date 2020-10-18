@@ -1,3 +1,6 @@
+//Regex for matching a number
+var numberRegex = /^[+-]?((\d+(\.\d*)?)|(\.\d+))/;
+
 
 //Implementation of the shunt-yard algorithm
 function parseEquation(eqString) {
@@ -10,17 +13,21 @@ function parseEquation(eqString) {
     var numMatch = false;
 
     if (values.length === 0 || (eqString.charAt(0) !== '-' && eqString.charAt(0) !== '+')) {
-      numMatch = eqString.match(/^[+-]?((\d+(\.\d*)?)|(\.\d+))/);
-      if (numMatch) numMatch = numMatch[0];
+      numMatch = eqString.match(numberRegex);
+      if (numMatch) {
+        numMatch = numMatch[0];
+      }
     }
 
     if (eqString.charAt(0) === 'x') {
       numMatch = 'x';
     }
 
+    console.log(numMatch);
+
     if (numMatch) {
       if (numMatch === 'x') {
-        values.push(numMatch)
+        values.push(numMatch);
       } else {
         values.push(parseFloat(numMatch));
       }
@@ -52,6 +59,10 @@ function parseEquation(eqString) {
       }
       eqString = eqString.slice(operator.length);
     }
+  }
+
+  if (ops.length === 0 && values.length === 1) { //Special case where the function is just a value/variable with no operators
+    return createTreeFunction(['\0'], values);
   }
 
   while (ops.length > 0) {
@@ -109,7 +120,7 @@ class Equation {
       } else {
         return val;
       }
-    })
+    });
     return this.opFunction(...computedOperands);
   }
 
@@ -119,12 +130,16 @@ class Equation {
 
   toString() {
     if (this.operands.length === 1) {
-      return `${this.op}(${this.operands[0].toString()})`;
+      if (this.op !== '\0') { //If this isn't a "no operator" value
+        return `${this.op}(${this.operands[0].toString()})`;
+      } else {
+        return this.operands[0].toString();
+      }
     } else if (this.operands.length === 2) {
       //Parentheses rewuired if there the precence of this operator is higher than it's operands
-      var opStrings = this.operands.map((op) => {        
+      var opStrings = this.operands.map((op) => {
         if (_PRECEDENCE_MAP[this.op] < _PRECEDENCE_MAP[op.op]) {
-          return `(${op.toString()})`
+          return `(${op.toString()})`;
         } else {
           return op.toString();
         }
@@ -139,7 +154,7 @@ class Equation {
 
 function numOperands(op) {
   if (_OP_TABLE[op]) {
-    return _OP_TABLE[op].length
+    return _OP_TABLE[op].length;
   }
   return -1;
 }
