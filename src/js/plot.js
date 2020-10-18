@@ -3,34 +3,35 @@ class Plot {
   _PARAMS = {
     fullscreen: true,
     type: Two.Types.svg
-  }
+  };
 
-  constructor(elem, eqs, range) {
+  constructor(elem, eqs, xMin = -10, xMax = 10, yMin = -10, yMax = 10) {
     this._plotter = new Two(this._PARAMS);
     this._plotter.appendTo(elem);
 
-    if (range) {
-      //deal with if range is given
-      //TODO: Make actual checks instead of arbitrarily assigning
-      this._bounds = range;
-    } else {
-      //else establish an arbitrary range
-      this._bounds = {
-        x: {
-          min: -this._plotter.width / 50,
-          max: this._plotter.width / 50
-        },
-        y: {
-          min: -this._plotter.height / 50,
-          max: this._plotter.height / 50
-        }
-      };
-    }
+    this.setBounds(xMin, xMax, yMin, yMax);
 
     if (Array.isArray(eqs)) {
       this.eqs = eqs;
     } else {
       this.eqs = [eqs];
+    }
+  }
+
+  setBounds(xMin, xMax, yMin, yMax) {
+    if (xMin < xMax && yMin < yMax) {
+      this._bounds = {
+        x: {
+          min: xMin,
+          max: xMax
+        },
+        y: {
+          min: yMin,
+          max: yMax
+        }
+      };
+    } else {
+      throw "Bounds not valid";
     }
   }
 
@@ -124,7 +125,7 @@ class Plot {
         }
       }
       lastDrawingState = drawingState;
-      lastProd = product
+      lastProd = product;
     }
 
     if (anchors.length > 0) {
@@ -148,10 +149,10 @@ class Plot {
       if (prod > this._bounds.y.max + range) {
         return 1;
       } else if (prod < this._bounds.y.min - range) {
-        return -1
+        return -1;
       } else return 0;
     } else {
-      return -2
+      return -2;
     }
   }
 
@@ -163,7 +164,7 @@ class Plot {
     var zero = {
       x: -this._bounds.x.min / del.x,
       y: this._bounds.y.max / del.y
-    }
+    };
     var xAxis = this._plotter.makeLine(0, zero.y, this._plotter.width, zero.y);
     var yAxis = this._plotter.makeLine(zero.x, 0, zero.x, this._plotter.height);
 
