@@ -170,6 +170,85 @@ class Chart {
       downloadWrapper.setAttribute('href', 'data:application/octet-stream;base64,' + btoa(this.plot.getElement().outerHTML));
     };
 
+    var rangeSettings = document.createElement("div");
+    rangeSettings.setAttribute("id", "range-settings");
+
+    var xRangeSetting = document.createElement("form");
+    xRangeSetting.setAttribute("id", "x-range-setting");
+
+    //create label including function textbox
+    var label = document.createElement('label');
+    label.setAttribute('for', 'x-range-setting');
+    label.innerText = 'x bounds';
+
+
+    var onChange = ev => {
+      this.settings.plotSettings.range[ev.target.getAttribute("data-boundType")] = parseFloat(ev.target.value);
+      this.plot.setBoundsSettings(this.settings.plotSettings.range);
+      this.draw();
+    };
+    var textbox = document.createElement('input');
+    textbox.setAttribute("id", "x-min-box");
+    textbox.setAttribute("class", "range-value-box");
+    textbox.setAttribute('type', 'number');
+    textbox.setAttribute('value', this.settings.plotSettings.range.xMin);
+    textbox.setAttribute('data-boundType', 'xMin');
+    textbox.setAttribute('step', "0.01");
+    textbox.onchange = onChange;
+
+    label.appendChild(textbox);
+
+    textbox = document.createElement('input');
+    textbox.setAttribute("id", "x-max-box");
+    textbox.setAttribute("class", "range-value-box");
+    textbox.setAttribute('type', 'number');
+    textbox.setAttribute('value', this.settings.plotSettings.range.xMax);
+    textbox.setAttribute('data-boundType', 'xMax');
+    textbox.setAttribute('step', "0.01");
+    textbox.onchange = onChange;
+
+    label.appendChild(textbox);
+
+    xRangeSetting.appendChild(label);
+
+    rangeSettings.appendChild(xRangeSetting);
+
+    var yRangeSetting = document.createElement("form");
+    yRangeSetting.setAttribute("id", "y-range-setting");
+
+    //create label including function textbox
+    label = document.createElement('label');
+    label.setAttribute('for', 'y-range-setting');
+    label.innerText = 'y bounds';
+
+
+    textbox = document.createElement('input');
+    textbox.setAttribute("id", "y-min-box");
+    textbox.setAttribute("class", "range-value-box");
+    textbox.setAttribute('type', 'number');
+    textbox.setAttribute('value', this.settings.plotSettings.range.yMin);
+    textbox.setAttribute('data-boundType', 'yMin');
+    textbox.setAttribute('step', "0.01");
+    textbox.onchange = onChange;
+
+    label.appendChild(textbox);
+
+    textbox = document.createElement('input');
+    textbox.setAttribute("id", "y-max-box");
+    textbox.setAttribute("class", "range-value-box");
+    textbox.setAttribute('type', 'number');
+    textbox.setAttribute('value', this.settings.plotSettings.range.yMax);
+    textbox.setAttribute('data-boundType', 'yMax');
+    textbox.setAttribute('step', "0.01");
+    textbox.onchange = onChange;
+
+    label.appendChild(textbox);
+
+    yRangeSetting.appendChild(label);
+
+    rangeSettings.appendChild(yRangeSetting);
+    this.settingsPanel.appendChild(rangeSettings);
+
     var downloadButton = document.createElement("button");
     downloadButton.innerHTML = "Download plot (.svg)";
     downloadWrapper.appendChild(downloadButton);

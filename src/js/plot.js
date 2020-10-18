@@ -18,6 +18,12 @@ class Plot {
     }
   }
 
+  setBoundsSettings(range) {
+    if (range.xMin && range.xMax && range.yMin && range.yMax) {
+      this.setBounds(range.xMin, range.xMax, range.yMin, range.yMax);
+    } else throw "Bad bounds settings";
+  }
+
   setBounds(xMin, xMax, yMin, yMax) {
     if (xMin < xMax && yMin < yMax) {
       this._bounds = {

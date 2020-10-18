@@ -15,6 +15,10 @@
   position: relative;
 }
 
+.range-value-box {
+  width: 4em;
+}
+
 .function-display {
   font-family: 'Roboto Mono', 'Courier New', Courier, monospace;
   font-size: 1em;
