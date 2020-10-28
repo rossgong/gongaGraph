@@ -30,7 +30,9 @@ class Chart {
     this.plot = new Plot(this.elem, this.eqs, this.settings.plotSettings);
 
     window.addEventListener('resize', () => {
-      this.draw();
+      if (document.activeElement.id !== "new-function-box") {
+        this.draw();
+      }
     });
 
     this.draw();
@@ -121,6 +123,7 @@ class Chart {
     var textbox = document.createElement('input');
     textbox.setAttribute('type', 'text');
     textbox.setAttribute('placeholder', 'x + 2');
+    textbox.setAttribute('id', 'new-function-box');
 
     label.appendChild(textbox);
 
