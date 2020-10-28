@@ -30,7 +30,7 @@ class Chart {
     this.plot = new Plot(this.elem, this.eqs, this.settings.plotSettings);
 
     window.addEventListener('resize', () => {
-      if (document.activeElement.id !== "new-function-box") {
+      if (!document.activeElement.classList.contains('input-box')) {
         this.draw();
       }
     });
@@ -123,7 +123,7 @@ class Chart {
     var textbox = document.createElement('input');
     textbox.setAttribute('type', 'text');
     textbox.setAttribute('placeholder', 'x + 2');
-    textbox.setAttribute('id', 'new-function-box');
+    textbox.setAttribute('class', 'input-box');
 
     label.appendChild(textbox);
 
@@ -192,7 +192,7 @@ class Chart {
     };
     var textbox = document.createElement('input');
     textbox.setAttribute("id", "x-min-box");
-    textbox.setAttribute("class", "range-value-box");
+    textbox.setAttribute("class", "range-value-box input-box");
     textbox.setAttribute('type', 'number');
     textbox.setAttribute('value', this.settings.plotSettings.range.xMin);
     textbox.setAttribute('data-boundType', 'xMin');
@@ -203,7 +203,7 @@ class Chart {
 
     textbox = document.createElement('input');
     textbox.setAttribute("id", "x-max-box");
-    textbox.setAttribute("class", "range-value-box");
+    textbox.setAttribute("class", "range-value-box input-box");
     textbox.setAttribute('type', 'number');
     textbox.setAttribute('value', this.settings.plotSettings.range.xMax);
     textbox.setAttribute('data-boundType', 'xMax');
@@ -227,7 +227,7 @@ class Chart {
 
     textbox = document.createElement('input');
     textbox.setAttribute("id", "y-min-box");
-    textbox.setAttribute("class", "range-value-box");
+    textbox.setAttribute("class", "range-value-box input-box");
     textbox.setAttribute('type', 'number');
     textbox.setAttribute('value', this.settings.plotSettings.range.yMin);
     textbox.setAttribute('data-boundType', 'yMin');
@@ -238,7 +238,7 @@ class Chart {
 
     textbox = document.createElement('input');
     textbox.setAttribute("id", "y-max-box");
-    textbox.setAttribute("class", "range-value-box");
+    textbox.setAttribute("class", "range-value-box input-box");
     textbox.setAttribute('type', 'number');
     textbox.setAttribute('value', this.settings.plotSettings.range.yMax);
     textbox.setAttribute('data-boundType', 'yMax');
